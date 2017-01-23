@@ -6,7 +6,7 @@ const fs = require('fs')
 const serviceTypes = require('../../../app/constants/cognitive-services-enum')
 
 const tags = {
-  TEXT_TAG: "text"
+  TEXT_TAG: 'text'
 }
 
 module.exports = function (path, service) {
@@ -21,8 +21,6 @@ module.exports = function (path, service) {
       } else {
         return handleOcrResult(response)
       }
-
-      return response
     })
     .catch((error) => {
       logger.error(error)
@@ -35,7 +33,7 @@ module.exports = function (path, service) {
  * @returns {string} parsedResponse.description - human readable description
  * @returns {Number} parsedResponse.confidence - Confidence value for prediction [0 - 1]
  */
-function handleAnalyzeResult(response) {
+function handleAnalyzeResult (response) {
   var description = response.description
   var text
   var confidence
@@ -48,14 +46,14 @@ function handleAnalyzeResult(response) {
     })
   }
 
-  return { isText: isText, description: text, confidence: confidence}
+  return { isText: isText, description: text, confidence: confidence }
 }
 
 /**
  * @param  {Object} response - Raw response from Vision API OCR endpoint
  * @returns {Array} parsedLines - 2D array of all lines within the image
  */
-function handleOcrResult(response) {
+function handleOcrResult (response) {
   var lines = []
   if (response.regions) {
     lines = _.map(response.regions, parseRegion)
@@ -64,7 +62,7 @@ function handleOcrResult(response) {
   // I don't care about preserving regions, so flatten this
   // out into 2D if the result is a 3D array
   if (lines[0] && lines[0][0] && lines[0][0].length > 1) {
-    lines = lines.reduce(function(prev, curr) {
+    lines = lines.reduce(function (prev, curr) {
       return prev.concat(curr)
     })
   }
@@ -72,9 +70,9 @@ function handleOcrResult(response) {
   return lines
 }
 
-function parseRegion(region) {
-  return _.map(region.lines, function(line) {
-    return _.map(line.words, function(word) {
+function parseRegion (region) {
+  return _.map(region.lines, function (line) {
+    return _.map(line.words, function (word) {
       return word.text
     })
   })
@@ -96,7 +94,7 @@ function getRequestOptions (path, service) {
   }
 }
 
-function getFormData(path) {
+function getFormData (path) {
   return {
     file: fs.createReadStream(path)
   }

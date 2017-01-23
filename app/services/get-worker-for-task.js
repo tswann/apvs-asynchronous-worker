@@ -40,7 +40,7 @@ module.exports = function (taskType) {
     case tasksEnum.CLEANUP_OLD_DATA: return cleanupOldData
     case tasksEnum.SEND_MALWARE_ALERT: return sendMalwareUploadNotification
     case tasksEnum.TECHNICAL_HELP_SUBMITTED: return sendTechnicalHelp
-    case tasksEnum.CHECK_DOCUMENTS: return checkDocument
+    case tasksEnum.CHECK_DOCUMENT: return checkDocument
   }
 
   return null
